@@ -41,24 +41,13 @@ void Robot::TeleopPeriodic() {
 	forklift.Set(copilot.GetY(GenericHID::kRightHand));
 
 	// Roller Control
-	if (rolling) {
-		if (copilot.GetYButton()) {
-			rolling = false;
-		} else if (pdu.GetCurrent(15) >= 20.0) {
-			roller.Set(0.1);
-		} else {
-			roller.Set(1.0);
-		}
+	if (copilot.GetAButton()){
+		roller.Set(1);
+	} else if (copilot.GetBButton()){
+		roller.Set(-1);
 	} else {
-		if (copilot.GetXButton()) {
-			rolling = true;
-		} else if (driver.GetYButton()) {
-			roller.Set(-1);
-		} else {
-			roller.Set(0);
-		}
+		roller.Set(0);
 	}
-
 
 	// Shooter Control
 	if (copilot.GetAButton()) {

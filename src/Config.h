@@ -15,9 +15,9 @@
 
 // Subsystems
 #define	CLIMBER_CANTALON_ID			6
-#define SHOOTER_LEFT_CANTALON_ID    7
+#define SHOOTER_LEFT_CANTALON_ID    1
 #define SHOOTER_RIGHT_CANTALON_ID   5
-#define ROLLER_CANTALON_ID          1
+#define ROLLER_CANTALON_ID          7
 #define GEAR_CANTALON_ID			1
 #define AGITATOR_CANTALON_ID		1
 #define FORKLIFT_CANTALON_ID		9
