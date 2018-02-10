@@ -5,7 +5,7 @@
 #define	ROBOT_ID	0
 
 /* Constants for Competition Robot */
-#if ROBOT_ID == 0
+#if ROBOT_ID == 1
 
 // Drive Train
 #define	REAR_RIGHT_CANTALON_ID		15
@@ -24,7 +24,7 @@
 #endif
 
 /* Constants for Practice Robot */
-#if ROBOT_ID == 1
+#if ROBOT_ID == 0
 
 // Drive Train
 #define	REAR_RIGHT_CANTALON_ID		11
