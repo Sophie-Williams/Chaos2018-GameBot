@@ -28,6 +28,7 @@ Robot::Robot():
 	gearHandler(GEAR_CANTALON_ID),
 	camera(5),
 	agitator(AGITATOR_CANTALON_ID, 6),
+	forklift(FORKLIFT_CANTALON_ID, 0, 1),
 
 	// Assorted In's and Out's
 	gyro(),
