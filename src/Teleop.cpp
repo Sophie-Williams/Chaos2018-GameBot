@@ -35,23 +35,7 @@ void Robot::TeleopPeriodic() {
 	);
 
 	// Climbing Control
-	if (climbing) {
-		if (driver.GetBButton()) {
-			climbing = false;
-		} else if (pdu.GetCurrent(3) >= 30.0) {
-			climber.Set(0.1);
-		} else {
-			climber.Set(1.0);
-		}
-	} else {
-		if (driver.GetAButton()) {
-			climbing = true;
-		} else if (driver.GetBButton()) {
-			climber.Set(-1);
-		} else {
-			climber.Set(0);
-		}
-	}
+	climber.Set(copilot.GetY(GenericHID::kLeftHand));
 
 	// Roller Control
 	if (rolling) {
