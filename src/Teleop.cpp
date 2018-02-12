@@ -27,6 +27,9 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
+	// LiDAR Stuff
+	lidar.test();
+
 	// Drive with deadband
 	robotDrive.MecanumDrive_Cartesian(
 		-0.5 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement

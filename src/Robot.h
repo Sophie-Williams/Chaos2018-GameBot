@@ -13,6 +13,7 @@
 #include "Camera.h"
 #include "Agitator.h"
 #include "LimitedForklift.h"
+#include "LiDAR.h"
 
 // Main Robot Class
 class Robot: public IterativeRobot
@@ -50,6 +51,9 @@ class Robot: public IterativeRobot
 	PowerDistributionPanel pdu;
 	BuiltInAccelerometer accelerometer;
 	RobotDrive robotDrive;
+
+	// LiDAR
+	LiDAR lidar;
 
 	// Flag variables
 	bool climbing;

@@ -39,6 +39,9 @@ Robot::Robot():
 	// NOTE: Documentation says (fl, rl, fr, rr), but it is actually (fr, fl, rr, rl)
 	robotDrive(PWMfr, PWMfl, PWMrr, PWMrl),
 
+	// LiDAR
+	lidar(),
+
 	// Flag variables
 	climbing(false),
 	rolling(false),
