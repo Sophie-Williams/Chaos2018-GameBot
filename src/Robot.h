@@ -1,17 +1,14 @@
 #ifndef SRC_ROBOT_H_
 #define SRC_ROBOT_H_
 
-#include <GearHandler.h>
 #include <cstdint>
 #include "WPILib.h"
 #include "ADXRS450_Gyro.h"
 #include "ctre/Phoenix.h"
 #include "Climber.h"
 #include "PowerDistributionPanel.h"
-#include "Shooter.h"
 #include "Roller.h"
 #include "Camera.h"
-#include "Agitator.h"
 #include "LimitedForklift.h"
 
 // Main Robot Class
@@ -37,11 +34,8 @@ class Robot: public IterativeRobot
 
 	// Pseudo-subsystem
 	Climber climber;
-	Shooter shooter;
 	Roller roller;
-	GearHandler gearHandler;
 	Camera camera;
-	Agitator agitator;
 	LimitedForklift forklift;
 
 

@@ -5,7 +5,6 @@
 #include <cmath>
 #include <iostream>
 #include "Climber.h"
-#include "Shooter.h"
 #include "Roller.h"
 #include "Camera.h"
 
@@ -49,18 +48,7 @@ void Robot::TeleopPeriodic() {
 		roller.Set(0);
 	}
 
-	// Shooter Control
-	if (copilot.GetAButton()) {
-		shooter.SetState(false);
-	} else if (copilot.GetBButton()) {
-		shooter.SetState(true);
-	}
 
-	// Update Shooter
-	shooter.Teleop();
-
-	//Update Agitator
-	agitator.Teleop();
 
 	// Camera Control
 		if (copilot.GetStartButton()) {
@@ -72,14 +60,6 @@ void Robot::TeleopPeriodic() {
 		// Update Camera
 		camera.Teleop();
 
-		// Gear Handler Control
-	if (copilot.GetBumper(GenericHID::kRightHand)) {
-		gearHandler.Set(0.25);
-	} else if (copilot.GetBumper(GenericHID::kLeftHand)) {
-		gearHandler.Set(-0.25);
-	} else {
-		gearHandler.Set(0);
-	}
 
 	UpdateMotors();
 
