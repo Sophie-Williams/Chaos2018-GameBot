@@ -49,7 +49,7 @@ class Robot: public IterativeRobot
 	ADXRS450_Gyro gyro;
 	PowerDistributionPanel pdu;
 	BuiltInAccelerometer accelerometer;
-	RobotDrive robotDrive;
+	MecanumDrive robotDrive;
 
 	// Flag variables
 	bool climbing;
