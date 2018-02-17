@@ -13,6 +13,9 @@ void Robot::AutonomousInit() {
 	// Get the values from the respective SendableChooser objects
 	autoMode = autoChooser.GetSelected();
 	startingPosition = positionChooser.GetSelected();
+
+	// Get game data
+	std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 }
 
 void Robot::AutonomousPeriodic() {
