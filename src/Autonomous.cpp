@@ -1,11 +1,18 @@
 #include <Robot.h>
 #include "WPILib.h"
+#include <SmartDashboard/SendableChooser.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 void Robot::AutonomousInit() {
-	// Setup
 	robotDrive.SetSafetyEnabled(false);
-	Forward(0.4,2);
-	Strafe(0.3,2);
+
+	// Set autonomous mode and position to defaults
+	int autoMode = -1;
+	int startingPosition = -1;
+
+	// Get the values from the respective SendableChooser objects
+	autoMode = autoChooser.GetSelected();
+	startingPosition = positionChooser.GetSelected();
 }
 
 void Robot::AutonomousPeriodic() {
