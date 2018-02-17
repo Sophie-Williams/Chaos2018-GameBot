@@ -32,9 +32,12 @@ Robot::Robot():
 	pdu(0),
 	accelerometer(),
 
-
 	// NOTE: Documentation says (fl, rl, fr, rr), but it is actually (fr, fl, rr, rl)
 	robotDrive(PWMfr, PWMfl, PWMrr, PWMrl),
+
+	// SmartDashboard Stuff
+	autoChooser(),
+	positionChooser(),
 
 	// Flag variables
 	climbing(false),
@@ -53,6 +56,21 @@ void Robot::UpdateMotors() {
 	
 	frontRight.Set(PWMfr.Get());
 	rearRight.Set(PWMrr.Get());
+}
+
+void Robot::RobotInit() {
+	autoChooser.AddDefault("Default", 0);
+	autoChooser.AddObject("Do Nothing", 1);
+	autoChooser.AddObject("Go Forward", 2);
+	autoChooser.AddObject("Attempt Switch", 3);
+	autoChooser.AddObject("Attempt Scale", 4);
+	frc::SmartDashboard::PutData("Autonomous", &autoChooser);
+
+	positionChooser.AddDefault("Default", 0);
+	positionChooser.AddObject("Left", 1);
+	positionChooser.AddObject("Center", 2);
+	positionChooser.AddObject("Right", 3);
+	frc::SmartDashboard::PutData("Position", &positionChooser);
 }
 
 START_ROBOT_CLASS(Robot);
