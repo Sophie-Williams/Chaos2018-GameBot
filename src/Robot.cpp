@@ -22,7 +22,7 @@ Robot::Robot():
 	copilot(4),
 
 	// Subsystems
-	climber(CLIMBER_CANTALON_ID),
+	climber(CLIMBER_CANTALON_ID, 7),
 	roller(ROLLER_CANTALON_ID),
 	camera(5),
 	forklift(FORKLIFT_CANTALON_ID, 0, 9),

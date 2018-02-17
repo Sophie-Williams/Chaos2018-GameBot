@@ -9,8 +9,16 @@ class Climber
   private:
 	WPI_TalonSRX climberMotor;
 
+	// Limit Switches
+		DigitalInput topLS;
+
+
+
   public:
-	Climber( int talon_id );
+
+	Climber( int talon_id, int topLS_port );
+
+
 
 	void Set( float speed );
 };
