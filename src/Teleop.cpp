@@ -32,10 +32,14 @@ void Robot::TeleopPeriodic() {
 	);
 
 	// Climbing Control
-	climber.Set(copilot.GetY(GenericHID::kRightHand));
+	climber.Set(
+		deadband(copilot.GetY(GenericHID::kRightHand),0.1)
+	);
 
 	//Forklift Control
-	forklift.Set(copilot.GetY(GenericHID::kLeftHand));
+	forklift.Set(
+		deadband(copilot.GetY(GenericHID::kLeftHand),0.1)
+	);
 
 	// Roller Control
 	if (copilot.GetAButton()){
