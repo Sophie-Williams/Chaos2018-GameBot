@@ -48,10 +48,10 @@ Robot::Robot():
 // TODO: Check if WPILib is fixed yet.
 void Robot::UpdateMotors() {
 	// Set real motor values based off of the fake ones
-	frontLeft.Set(-PWMfl.Get());
+	frontLeft.Set(PWMfl.Get());
 	rearLeft.Set(PWMrl.Get());
 	
-	frontRight.Set(-PWMfr.Get());
+	frontRight.Set(PWMfr.Get());
 	rearRight.Set(PWMrr.Get());
 }
 

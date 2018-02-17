@@ -28,9 +28,9 @@ void Robot::TeleopPeriodic() {
 
 	// Drive with deadband
 	robotDrive.DriveCartesian(
-		-0.5 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement
-		 0.5 * deadband(driver.GetX(GenericHID::kLeftHand)), // Sideways movement
-		-0.5 * deadband(driver.GetX(GenericHID::kRightHand))  // Rotational movement
+		0.5 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement
+		0.75 * deadband(driver.GetX(GenericHID::kLeftHand)), // Sideways movement
+		0.5 * deadband(driver.GetX(GenericHID::kRightHand))  // Rotational movement
 	);
 
 	// Climbing Control
