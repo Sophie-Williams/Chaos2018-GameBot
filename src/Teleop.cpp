@@ -8,9 +8,7 @@
 #include "Roller.h"
 #include "Camera.h"
 
-double deadband(double input) {
-
-	float deadband = 0.2;
+double deadband(double input, float deadband = 0.2) {
 
 	if (fabs(input) <= deadband) {
 		return 0;
