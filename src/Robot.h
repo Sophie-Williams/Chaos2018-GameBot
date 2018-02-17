@@ -38,21 +38,26 @@ class Robot: public IterativeRobot
 	Camera camera;
 	LimitedForklift forklift;
 
-
 	// Assorted In's and Out's
 	ADXRS450_Gyro gyro;
 	PowerDistributionPanel pdu;
 	BuiltInAccelerometer accelerometer;
 	MecanumDrive robotDrive;
 
+	// SmartDashboard Stuff
+	frc::SendableChooser<int> autoChooser;
+	frc::SendableChooser<int> positionChooser;
+
 	// Flag variables
 	bool climbing;
 	bool rolling;
 	bool handling;
-
   public:
 	// Constructor Method
 	Robot();
+
+	// For NetworkTables, mostly
+	void RobotInit();
 
 	// Various Iterators
 	void AutonomousInit();
@@ -60,8 +65,6 @@ class Robot: public IterativeRobot
 	void TeleopInit();
 	void TeleopPeriodic();
 	
-
-
 	// Various Helper Functions
 	void UpdateMotors();
 	void Forward( float Speed, float Time );

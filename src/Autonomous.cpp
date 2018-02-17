@@ -1,114 +1,117 @@
 #include <Robot.h>
-#include <cstdint>
-#include <cmath>
 #include "WPILib.h"
-	//forward at 0.4 for 1second =44"
+#include <SmartDashboard/SendableChooser.h>
+#include <SmartDashboard/SmartDashboard.h>
+
 void Robot::AutonomousInit() {
-	// Setup
 	robotDrive.SetSafetyEnabled(false);
-	Forward(0.4,2);
-	Strafe(0.3,2);
+
+	// Set autonomous mode and position to defaults
+	int autoMode = -1;
+	int startingPosition = -1;
+
+	// Get the values from the respective SendableChooser objects
+	autoMode = autoChooser.GetSelected();
+	startingPosition = positionChooser.GetSelected();
+
+	// Get game data
+	std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+	// Test that we got anything?
+	switch(autoMode) {
+
+		// Do nothing
+		case 1:
+			// TODO: Implement?
+			break;
+
+		// Go forward
+		case 2:
+			// TODO: Implement
+			break;
+
+		// Attempt switch
+		case 3:
+			switch(startingPosition) {
+				case 1:
+					if(gameData[0] == 'L') {
+						// Start on left, end on left switch
+						// TODO: Implement
+					} else {
+						// Start on left, end on right switch
+						// TODO: Implement
+					}
+					break;
+				case 2:
+					if(gameData[0] == 'L') {
+						// Start on center, end on left switch
+						// TODO: Implement
+					} else {
+						// Start on center, end on right switch
+						// TODO: Implement
+					}
+					break;
+				case 3:
+					if(gameData[0] == 'L') {
+						// Start on right, end on left switch
+						// TODO: Implement
+					} else {
+						// Start on right, end on right switch
+						// TODO: Implement
+					}
+					break;
+				default:
+					// Didn't select starting position!
+					// TODO: Decide what to do here. Perhaps just forward?
+					break;
+			}
+			break;
+
+		// Attempt scale
+		case 4:
+			switch(startingPosition) {
+				case 1:
+					if(gameData[0] == 'L') {
+						// Start on left, end on left scale
+						// TODO: Implement
+					} else {
+						// Start on left, end on right scale
+						// TODO: Implement
+					}
+					break;
+				case 2:
+					if(gameData[0] == 'L') {
+						// Start on center, end on left scale
+						// TODO: Implement
+					} else {
+						// Start on center, end on right scale
+						// TODO: Implement
+					}
+					break;
+				case 3:
+					if(gameData[0] == 'L') {
+						// Start on right, end on left scale
+						// TODO: Implement
+					} else {
+						// Start on right, end on right scale
+						// TODO: Implement
+					}
+					break;
+				default:
+					// Didn't select starting position!
+					// TODO: Decide what to do here. Perhaps just forward?
+					break;
+			}
+			break;
+
+		// Didn't select autonomous mode!
+		default:
+			// TODO: Decide what to do here. Perhaps just forward?
+			break;
+	}
 }
 
 void Robot::AutonomousPeriodic() {
 	Wait(0.005);
 }
 
-void Robot::Turn( float absSpeed, float targetAngle ) {
-	float angle;
-	float offset;
-	float speed;
-
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
-
-	// Initialize Timer
-	Timer timer;
-	timer.Reset();
-	timer.Start();
-	
-	do {
-		// Find the offsets for the rest of the math
-		angle = gyro.GetAngle();
-		offset = targetAngle - angle;
-
-		// Calculate output speed
-		if(offset < 0)
-			speed = absSpeed;
-		else
-			speed = -absSpeed;
-
-		// Turn
-		robotDrive.DriveCartesian(0, 0, speed);
-		UpdateMotors();
-
-		// Keep CPU from catching fire and network from exploding in a fireball of packets.
-		Wait(0.005);
-
-	} while( abs(offset) > 1 && timer.Get() < 5 ); // Repeat until target is reached or we timeout.
-
-	// Leave everything as we found it
-	robotDrive.DriveCartesian(0, 0, 0);
-	UpdateMotors();
-}
-
-void Robot::Backward( float Speed, float Time ) {
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
-
-	// Initialize Timer
-	Timer timer;
-	timer.Reset();
-	timer.Start();
-
-	// Move straight, changing angle to adjust for drift
-	while ( timer.Get() <= Time ) {
-		Wait(0.005);
-		robotDrive.DriveCartesian(-Speed, 0, gyro.GetAngle() * 0.1 );
-		UpdateMotors();
-	}
-	
-	// Leave everything as we found it
-	robotDrive.DriveCartesian(0, 0, 0);
-	UpdateMotors();
-	timer.Stop();
-}
-
-void Robot::Forward( float Speed, float Time ) {
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
-
-	// Initialize Timer
-	Timer timer;
-	timer.Reset();
-	timer.Start();
-
-	// Move straight, changing angle to adjust for drift
-	while ( timer.Get() <= Time ) {
-		Wait(0.005);
-		robotDrive.DriveCartesian(Speed, 0, gyro.GetAngle() * 0.1 );
-		UpdateMotors();
-	}
-	
-	// Leave everything as we found it
-	robotDrive.DriveCartesian(0, 0, 0);
-	UpdateMotors();
-	timer.Stop();
-}
-
-void Robot::Strafe( float Speed, float Time ) {
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
-
-	// Initialize Timer
-	Timer timer;
-	timer.Reset();
-	timer.Start();
-
-	// Move straight, changing angle to adjust for drift
-	while ( timer.Get() <= Time ) {
-		Wait(0.005);
-		robotDrive.DriveCartesian(0, Speed, gyro.GetAngle() * 0.1 );
-		UpdateMotors();
-	}
-}
