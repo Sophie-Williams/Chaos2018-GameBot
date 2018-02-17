@@ -20,7 +20,7 @@ void LimitedForklift::Set( float speed ) {
 			forkliftMotor.Set( 0 );
 		}
 
-	} else if( bottomLS.Get() ) {
+	} else*/ if( bottomLS.Get() ) {
 
 		// If the bottom limit switch is tripped, only go up.
 		if( speed > 0 ) {
@@ -29,11 +29,11 @@ void LimitedForklift::Set( float speed ) {
 			forkliftMotor.Set( 0 );
 		}
 
-	} else {*/
+	} else {
 
 		// Otherwise, go whatever speed is given.
 		forkliftMotor.Set( speed );
 
-	//}
+	}
 
 }

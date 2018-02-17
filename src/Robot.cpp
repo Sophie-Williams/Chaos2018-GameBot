@@ -25,7 +25,7 @@ Robot::Robot():
 	climber(CLIMBER_CANTALON_ID),
 	roller(ROLLER_CANTALON_ID),
 	camera(5),
-	forklift(FORKLIFT_CANTALON_ID, 0, 1),
+	forklift(FORKLIFT_CANTALON_ID, 0, 9),
 
 	// Assorted In's and Out's
 	gyro(),
