@@ -66,7 +66,15 @@ void Robot::AutonomousInit() {
 						// TODO: Implement
 					} else {
 						// Start on right, end on right switch
-						// TODO: Implement
+						// TODO: Test
+						roller.Set(-1);
+						forklift.Set(1);
+						Wait(2);
+						roller.Set(0);
+						forklift.Set(0);
+						Forward(.5, 1);
+						Turn(.5, -90);
+						roller.Set(1);
 					}
 					break;
 				default:
