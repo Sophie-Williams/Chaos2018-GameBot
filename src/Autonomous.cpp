@@ -54,10 +54,28 @@ void Robot::AutonomousInit() {
 				case 2:
 					if(gameData[0] == 'L') {
 						// Start on center, end on left switch
-						// TODO: Implement
+						// TODO: Test
+						roller.Set(-1);
+						forklift.Set(1);
+						Wait(2);
+						roller.Set(0);
+						forklift.Set(0);
+						Forward(.5, .5);
+						Strafe(-1, 1.5);
+						Forward(.2, 1);
+						roller.Set(1);
 					} else {
 						// Start on center, end on right switch
-						// TODO: Implement
+						// TODO: Test
+						roller.Set(-1);
+						forklift.Set(1);
+						Wait(2);
+						roller.Set(0);
+						forklift.Set(0);
+						Forward(.5, .5);
+						Strafe(-1, 1.5);
+						Forward(.2, 1);
+						roller.Set(1);
 					}
 					break;
 				case 3:
