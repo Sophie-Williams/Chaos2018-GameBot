@@ -27,7 +27,8 @@ void Robot::AutonomousInit() {
 
 		// Go forward
 		case 2:
-			// TODO: Implement
+			// TODO: Test
+			Forward(.5, 2);
 			break;
 
 		// Attempt switch
@@ -48,7 +49,8 @@ void Robot::AutonomousInit() {
 
 					} else {
 						// Start on left, end on right switch
-						// TODO: Implement
+						// TODO: Test
+						Forward(.5, 2);
 					}
 					break;
 				case 2:
@@ -81,7 +83,8 @@ void Robot::AutonomousInit() {
 				case 3:
 					if(gameData[0] == 'L') {
 						// Start on right, end on left switch
-						// TODO: Implement
+						// TODO: Test
+						Forward(.5, 2);
 					} else {
 						// Start on right, end on right switch
 						// TODO: Test
