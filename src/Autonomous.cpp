@@ -109,7 +109,62 @@ void Robot::AutonomousInit() {
 		case 4:
 			switch(startingPosition) {
 				case 1:
+					if(gameData[') {
+						// Start on center, end on left switch
+						// TODO: Test
+						roller.Set(-1);
+						forklift.Set(1);
+						Wait(2);
+						roller.Set(0);
+						forklift.Set(0);
+						Forward(.5, .5);
+						Strafe(-1, 1.5);
+						Forward(.2, 1);
+						roller.Set(1);
+					} else {
+						// Start on center, end on right switch
+						// TODO: Test
+						roller.Set(-1);
+						forklift.Set(1);
+						Wait(2);
+						roller.Set(0);
+						forklift.Set(0);
+						Forward(.5, .5);
+						Strafe(-1, 1.5);
+						Forward(.2, 1);
+						roller.Set(1);
+					}
+					break;
+				case 3:
 					if(gameData[0] == 'L') {
+						// Start on right, end on left switch
+						// TODO: Test
+						Forward(.5, 2);
+					} else {
+						// Start on right, end on right switch
+						// TODO: Test
+						roller.Set(-1);
+						forklift.Set(1);
+						Wait(2);
+						roller.Set(0);
+						forklift.Set(0);
+						Forward(.5, 1);
+						Turn(.5, -90);
+						roller.Set(1);
+					}
+					break;
+				default:
+					// Didn't select starting position!
+					// TODO: Decide what to do here. Perhaps just forward?
+					break;
+			}
+			break;
+
+		// Attempt scale
+		case 4:
+			switch(startingPosition) {
+				case 1:
+					if(gameData[1] == 'L') {
 						// Start on left, end on left scale
 						// TODO: Implement
 					} else {
@@ -118,7 +173,7 @@ void Robot::AutonomousInit() {
 					}
 					break;
 				case 2:
-					if(gameData[0] == 'L') {
+					if(gameData[1] == 'L') {
 						// Start on center, end on left scale
 						// TODO: Implement
 					} else {
@@ -127,7 +182,7 @@ void Robot::AutonomousInit() {
 					}
 					break;
 				case 3:
-					if(gameData[0] == 'L') {
+					if(gameData[1] == 'L') {
 						// Start on right, end on left scale
 						// TODO: Implement
 					} else {
