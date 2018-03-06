@@ -109,7 +109,7 @@ void Robot::AutonomousInit() {
 		case 4:
 			switch(startingPosition) {
 				case 1:
-					if(gameData[') {
+					if(gameData[0]=='L') {
 						// Start on center, end on left switch
 						// TODO: Test
 						roller.Set(-1);
