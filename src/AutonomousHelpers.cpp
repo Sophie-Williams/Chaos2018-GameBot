@@ -53,7 +53,7 @@ void Robot::Backward( float Speed, float Time ) {
 	// Move straight, changing angle to adjust for drift
 	while ( timer.Get() <= Time ) {
 		Wait(0.005);
-		robotDrive.DriveCartesian(-Speed, 0, gyro.GetAngle() * 0.1 );
+		robotDrive.DriveCartesian(-Speed, 0, gyro.GetAngle() * 0 );
 		UpdateMotors();
 	}
 
@@ -75,7 +75,7 @@ void Robot::Forward( float Speed, float Time ) {
 	// Move straight, changing angle to adjust for drift
 	while ( timer.Get() <= Time ) {
 		Wait(0.005);
-		robotDrive.DriveCartesian(Speed, 0, gyro.GetAngle() * 0.1 );
+		robotDrive.DriveCartesian(-Speed, 0, gyro.GetAngle() * 0 );
 		UpdateMotors();
 	}
 
@@ -97,7 +97,7 @@ void Robot::Strafe( float Speed, float Time ) {
 	// Move straight, changing angle to adjust for drift
 	while ( timer.Get() <= Time ) {
 		Wait(0.005);
-		robotDrive.DriveCartesian(0, Speed, gyro.GetAngle() * 0.1 );
+		robotDrive.DriveCartesian(0, Speed, gyro.GetAngle() * 0 );
 		UpdateMotors();
 	}
 }
