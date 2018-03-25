@@ -29,6 +29,7 @@ void Robot::TeleopPeriodic() {
 		0.5 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement
 		0.75 * deadband(driver.GetX(GenericHID::kLeftHand)), // Sideways movement
 		0.5 * deadband(driver.GetX(GenericHID::kRightHand))  // Rotational movement
+
 	);
 
 	// Climbing Control
@@ -45,10 +46,13 @@ void Robot::TeleopPeriodic() {
 	if (copilot.GetAButton()){
 		roller.Set(1);
 	} else if (copilot.GetBButton()){
+		roller.Set(-0.5);
+	} else if (copilot.GetXButton()){
 		roller.Set(-1);
 	} else {
 		roller.Set(0);
 	}
+
 
 
 

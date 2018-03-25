@@ -1,3 +1,4 @@
+/*
 #include <Gyro.h>
 #include <BuiltInAccelerometer.h>
 #include <Timer.h>
@@ -8,7 +9,7 @@
 
 /* This contains the kinematic expressions needed to determine the robot's motion
 The accelerometer's x data will determine the forward motion, y would be used when strafing, and
- the gyro angle will be used to determine the heading. */
+ the gyro angle will be used to determine the heading.
  
  
  float p_x;
@@ -77,7 +78,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   2. Stop at scale midpoint.
 				  	   3. Rotate 90 degrees clockwise.
 				  	   4. Deliver cube.
-				  	   5. Back up. */
+				  	   5. Back up.
 				  	   // Go forward to midpoint of scale
 				  	   
 				  	   Robot::Robot.Forward(2,0);
@@ -119,7 +120,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   4. Stop at scale midpoint.
 				  	   5. Rotate 90 degrees clockwise.
 				  	   6. Deliver cube.
-				  	   7. Back up. */
+				  	   7. Back up.
 				  	   
 				  	   // Move forward 5 inches.
 				  	   
@@ -186,7 +187,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   2. Go forward.
 				  	   3. Stop at scale midpoint.
 				  	   4. Rotate 90 degrees clockwise.
-				  	   5. Deliver cube. */
+				  	   5. Deliver cube.
 				  	   // Move forward 5 inches.
 				  	   
 				  	   Robot::Robot.Forward(2,0);
@@ -260,7 +261,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 					  	   4. Stop at scale midpoint.
 					  	   5. Rotate 90 degrees counterclockwise.
 					  	   6. Deliver cube.
-					  	   7. Back up. */
+					  	   7. Back up.
 					  	   
 						// Move forward 5 inches.
 				  	   
@@ -328,7 +329,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 					  	   3. Stop at scale midpoint.
 					  	   4. Rotate 90 degrees counterclockwise.
 					  	   5. Deliver cube. 
-					  	   6. Back up. */
+					  	   6. Back up.
 					  	   
 					  	   //Strafe right 15 inches in front of scale.
 					  	   
@@ -371,7 +372,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 					  	   2. Stop at scale midpoint.
 					  	   3. Rotate 90 degrees counterclockwise.
 					  	   4. Deliver cube.
-					  	   5. Back up. */
+					  	   5. Back up.
 					  	   
 					  	   Robot::Robot.Forward();
 					  	   v_y=0;
@@ -411,7 +412,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   2. Stop at switch midpoint.
 				  	   3. Rotate 90 degrees clockwise.
 				  	   4. Deliver cube.
-				  	   5. Back up. */
+				  	   5. Back up.
 				  	   
 				  	   v_y=0;
 				  	   SampT.Reset;
@@ -445,7 +446,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   4. Stop at switch midpoint.
 				  	   5. Rotate 90 degrees clockwise.
 				  	   6. Deliver cube.
-				  	   7. Back up.  */
+				  	   7. Back up.
 				  	   
 				  	   v_y=0;
 				  	   SampT.Reset;
@@ -496,8 +497,8 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   4. Stop at switch midpoint.
 				  	   5. Rotate 90 degrees clockwise.
 				  	   6. Deliver cube.
-				  	   7. Back up. */
-				  	   
+				  	   7. Back up.
+
 				  	   v_y=0;
 				  	   SampT.Reset;
 				  	   SampT.Stop;
@@ -556,8 +557,8 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   3. Stop at switch midpoint.
 				  	   4. Rotate 90 degrees counterclockwise.
 				  	   5. Deliver cube. 
-				  	   6. Back up. */
-				  	   
+				  	   6. Back up.
+
 				  	   v_y=0;
 				  	   SampT.Reset;
 				  	   SampT.Start;
@@ -610,7 +611,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   3. Stop at switch midpoint.
 				  	   4. Rotate 90 degrees counterclockwise.
 				  	   5. Deliver cube. 
-				  	   6. Back up. */
+				  	   6. Back up.
 				  	   
 				  	   v_x=0;
 				  	   SampT.Reset;
@@ -653,7 +654,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 				  	   2. Stop at switch midpoint.
 				  	   3. Rotate 90 degrees counterclockwise.
 				  	   4. Deliver cube.
-				  	   5. Back up. */
+				  	   5. Back up.
 				  	   
 				  	   v_y=0;
 				  	   SampT.Reset;
@@ -691,7 +692,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
 			}
 			
 		/* This function calculates the current x position given acceleration and the initial x velocity and x position.
-			while going forward */
+			while going forward
 			
 		void XPosFor()
 			{
@@ -704,7 +705,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
   	   			return;
 			}
 		/* This function calculates the current y position given acceleration and the initial y velocity and y position.
-			while going forward */	
+			while going forward
 			
 		void YPosFor()
 			{
@@ -717,7 +718,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
   	   			return;				
 			}
 		/* This function calculates the current x position given acceleration and the initial x velocity and x position.
-			while strafing */
+			while strafing
 			
 		void XPosStrafe()
 			{
@@ -730,7 +731,7 @@ The accelerometer's x data will determine the forward motion, y would be used wh
   	   			return;
 			}
 		/* This function calculates the current y position given acceleration and the initial y velocity and y position.
-			while strafing */
+			while strafing
 				
 		void YPosStrafe()
 			{
@@ -742,3 +743,4 @@ The accelerometer's x data will determine the forward motion, y would be used wh
   	   			v_y = v_yi;
   	   			return;				
 			}
+*/

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include "WPILib.h"
-#include "ADXRS450_Gyro.h"
+#include <AHRS.h>
 #include "ctre/Phoenix.h"
 #include "Climber.h"
 #include "PowerDistributionPanel.h"
@@ -39,7 +39,7 @@ class Robot: public IterativeRobot
 	LimitedForklift forklift;
 
 	// Assorted In's and Out's
-	ADXRS450_Gyro gyro;
+    AHRS *m_pAHRS;
 	PowerDistributionPanel pdu;
 	BuiltInAccelerometer accelerometer;
 	MecanumDrive robotDrive;
@@ -70,6 +70,7 @@ class Robot: public IterativeRobot
 	void Forward( float Speed, float Time );
 	void Backward( float Speed, float Time );
 	void Turn( float absSpeed, float targetAngle );
+	void Turn2( float Speed, float Time );
 	void Strafe( float Speed, float Time );
 	int AutoSwitch();
 };

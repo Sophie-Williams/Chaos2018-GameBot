@@ -32,7 +32,7 @@
 // Subsystems
 #define	CLIMBER_CANTALON_ID			17
 #define ROLLER_CANTALON_ID          13
-#define FORKLIFT_CANTALON_ID		9
+#define FORKLIFT_CANTALON_ID		18
 #endif
 
 #endif /* SRC_CONFIG_H_ */

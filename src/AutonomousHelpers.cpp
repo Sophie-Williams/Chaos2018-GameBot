@@ -8,8 +8,8 @@ void Robot::Turn( float absSpeed, float targetAngle ) {
 	float offset;
 	float speed;
 
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
+	// Reset the ahrs to 0 degrees
+//	m_pAHRS->Reset();
 
 	// Initialize Timer
 	Timer timer;
@@ -18,7 +18,8 @@ void Robot::Turn( float absSpeed, float targetAngle ) {
 
 	do {
 		// Find the offsets for the rest of the math
-		angle = gyro.GetAngle();
+//		angle = m_pAHRS->GetAngle();
+		angle = 0;
 		offset = targetAngle - angle;
 
 		// Calculate output speed
@@ -42,8 +43,8 @@ void Robot::Turn( float absSpeed, float targetAngle ) {
 }
 
 void Robot::Backward( float Speed, float Time ) {
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
+	// Reset the ahrs to 0 degrees
+	//m_pAHRS->Reset();
 
 	// Initialize Timer
 	Timer timer;
@@ -53,7 +54,7 @@ void Robot::Backward( float Speed, float Time ) {
 	// Move straight, changing angle to adjust for drift
 	while ( timer.Get() <= Time ) {
 		Wait(0.005);
-		robotDrive.DriveCartesian(-Speed, 0, gyro.GetAngle() * 0.1 );
+		robotDrive.DriveCartesian(-Speed, 0, 0 );
 		UpdateMotors();
 	}
 
@@ -64,8 +65,8 @@ void Robot::Backward( float Speed, float Time ) {
 }
 
 void Robot::Forward( float Speed, float Time ) {
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
+	// Reset the ahrs to 0 degrees
+	//m_pAHRS->Reset();
 
 	// Initialize Timer
 	Timer timer;
@@ -75,7 +76,7 @@ void Robot::Forward( float Speed, float Time ) {
 	// Move straight, changing angle to adjust for drift
 	while ( timer.Get() <= Time ) {
 		Wait(0.005);
-		robotDrive.DriveCartesian(Speed, 0, gyro.GetAngle() * 0.1 );
+		robotDrive.DriveCartesian(Speed, 0, 0);
 		UpdateMotors();
 	}
 
@@ -86,8 +87,8 @@ void Robot::Forward( float Speed, float Time ) {
 }
 
 void Robot::Strafe( float Speed, float Time ) {
-	// Reset the gyro to 0 degrees
-	gyro.Reset();
+	// Reset the ahrs to 0 degrees
+	//m_pAHRS->Reset();
 
 	// Initialize Timer
 	Timer timer;
@@ -97,7 +98,34 @@ void Robot::Strafe( float Speed, float Time ) {
 	// Move straight, changing angle to adjust for drift
 	while ( timer.Get() <= Time ) {
 		Wait(0.005);
-		robotDrive.DriveCartesian(0, Speed, gyro.GetAngle() * 0.1 );
+		robotDrive.DriveCartesian(0, Speed, 0 );
 		UpdateMotors();
 	}
+	// Leave everything as we found it
+	robotDrive.DriveCartesian(0, 0, 0);
+	UpdateMotors();
+	timer.Stop();
+
+}
+
+void Robot::Turn2( float Speed, float Time ) {
+	// Reset the ahrs to 0 degrees
+//	m_pAHRS->Reset();
+
+	// Initialize Timer
+	Timer timer;
+	timer.Reset();
+	timer.Start();
+
+	// Move straight, changing angle to adjust for drift
+	while ( timer.Get() <= Time ) {
+		Wait(0.005);
+		robotDrive.DriveCartesian( 0, 0, Speed );
+		UpdateMotors();
+	}
+
+	// Leave everything as we found it
+	robotDrive.DriveCartesian(0, 0, 0);
+	UpdateMotors();
+	timer.Stop();
 }

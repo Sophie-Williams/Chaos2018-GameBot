@@ -6,6 +6,7 @@
 
 Robot::Robot():
 	// Actual Motor Controllers
+	m_pAHRS(nullptr),
 	frontRight(FRONT_RIGHT_CANTALON_ID),
 	frontLeft(FRONT_LEFT_CANTALON_ID),
 	rearLeft(REAR_LEFT_CANTALON_ID),
@@ -28,7 +29,6 @@ Robot::Robot():
 	forklift(FORKLIFT_CANTALON_ID, 0, 9),
 
 	// Assorted In's and Out's
-	gyro(),
 	pdu(0),
 	accelerometer(),
 
