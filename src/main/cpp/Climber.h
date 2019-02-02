@@ -4,6 +4,8 @@
 #include "ctre/Phoenix.h"
 #include "WPILib.h"
 
+using namespace frc;
+
 class Climber
 {
   private:

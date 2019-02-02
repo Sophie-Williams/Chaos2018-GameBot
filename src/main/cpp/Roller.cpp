@@ -1,5 +1,5 @@
-#include <cstdint>
 #include "WPILib.h"
+#include <cstdint>
 #include "Roller.h"
 
 Roller::Roller( int talon_id ):

@@ -17,6 +17,7 @@
 #define	CLIMBER_CANTALON_ID			6
 #define ROLLER_CANTALON_ID          7
 #define FORKLIFT_CANTALON_ID		9
+#define HATCH_CANTALON_ID           4
 
 #endif
 

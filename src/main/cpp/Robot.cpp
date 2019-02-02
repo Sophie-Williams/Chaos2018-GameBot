@@ -3,6 +3,10 @@
 #include "WPILib.h"
 #include "Climber.h"
 #include "Config.h"
+#include "TimedRobot.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
+#include "networktables/NetworkTableInstance.h"
 
 Robot::Robot():
 	// Actual Motor Controllers
@@ -25,8 +29,8 @@ Robot::Robot():
 	// Subsystems
 	climber(CLIMBER_CANTALON_ID, 7),
 	roller(ROLLER_CANTALON_ID),
-	camera(5),
 	forklift(FORKLIFT_CANTALON_ID, 0, 9),
+	hatch(HATCH_CANTALON_ID),
 
 	// Assorted In's and Out's
 	pdu(0),
@@ -71,6 +75,8 @@ void Robot::RobotInit() {
 	positionChooser.AddObject("Center", 2);
 	positionChooser.AddObject("Right", 3);
 	frc::SmartDashboard::PutData("Position", &positionChooser);
+
+
 }
 
 START_ROBOT_CLASS(Robot);

@@ -1,6 +1,7 @@
 #ifndef SRC_ROBOT_H_
 #define SRC_ROBOT_H_
 
+
 #include <cstdint>
 #include "WPILib.h"
 #include <AHRS.h>
@@ -8,7 +9,7 @@
 #include "Climber.h"
 #include "PowerDistributionPanel.h"
 #include "Roller.h"
-#include "Camera.h"
+#include "Hatch.h"
 #include "LimitedForklift.h"
 
 // Main Robot Class
@@ -35,8 +36,8 @@ class Robot: public IterativeRobot
 	// Pseudo-subsystem
 	Climber climber;
 	Roller roller;
-	Camera camera;
 	LimitedForklift forklift;
+	Hatch hatch;
 
 	// Assorted In's and Out's
     AHRS *m_pAHRS;
