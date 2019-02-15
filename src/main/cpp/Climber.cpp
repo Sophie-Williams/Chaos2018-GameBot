@@ -18,12 +18,12 @@ void Climber::Set( float speed ) {
 				climberMotor.Set( 0 );
 			}
 
-		} else {
+	} else {
 
-			// Otherwise, go whatever speed is given.
-			climberMotor.Set( speed );
+		// Otherwise, go whatever speed is given.
+		climberMotor.Set( speed );
 
-		}
+	}
 
 }
 

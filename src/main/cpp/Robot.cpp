@@ -76,6 +76,8 @@ void Robot::RobotInit() {
 	positionChooser.AddObject("Right", 3);
 	frc::SmartDashboard::PutData("Position", &positionChooser);
 
+	auto inst = nt::NetworkTableInstance::GetDefault();
+	auto table = inst.GetTable("datatable");
 
 }
 

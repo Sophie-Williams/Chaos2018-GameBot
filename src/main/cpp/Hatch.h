@@ -9,7 +9,7 @@ using namespace frc;
 class Hatch {
 
 private:
-	WPI_TalonSRX hatchMotor;
+	WPI_TalonSRX hatch;
 
 public:
 	// Constructors

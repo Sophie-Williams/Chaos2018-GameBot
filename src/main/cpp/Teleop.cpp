@@ -27,6 +27,7 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
+
 	auto inst = nt::NetworkTableInstance::GetDefault();
 	auto table = inst.GetTable("datatable");
 
@@ -35,11 +36,16 @@ void Robot::TeleopPeriodic() {
 
 	float Direction = 0;
 
+	float sped = 0;
+	float tim = 0;
+
 	nt::NetworkTableEntry xEntry = table->GetEntry("X");
 	nt::NetworkTableEntry yEntry = table->GetEntry("Y");
 
 	ballAngle = xEntry.GetDouble(0);
 	targetAngle = yEntry.GetDouble(0);
+
+	
 
 	
 
@@ -53,11 +59,35 @@ void Robot::TeleopPeriodic() {
 
 	// Auto Align
 	if (driver.GetAButton() == true){
-
-		ballAngle = xEntry.GetDouble(0);
-		robotDrive.DriveCartesian(0, 0, (ballAngle * 0.01), 0);
-		std::cout << ballAngle * 0.01 << "\n";
 		
+		ballAngle = xEntry.GetDouble(0);
+
+		if (abs(ballAngle) < 1){
+			while (true){
+				if (driver.GetAButtonReleased()){
+					break;
+				}
+			}
+		}
+
+		if (ballAngle > .5){
+			sped = 0.2;
+		} else if (ballAngle < -.5){
+			sped = -0.2;
+		} else{
+			sped = 0;
+		}
+
+		if ((ballAngle < 0.75) and (ballAngle > -0.75)){
+			tim = 0.01;
+		} else{
+			tim = 0.05;
+		}
+		Turn2(sped, tim);
+		//robotDrive.DriveCartesian(0, 0, (ballAngle * 0.0125), 0);
+		std::cout << sped << "\n";
+		std::cout << tim << "\n";
+			
 		
 	} 
 	if (driver.GetYButton()){
@@ -71,26 +101,48 @@ void Robot::TeleopPeriodic() {
 
 	//Forklift Control
 	forklift.Set(
-		deadband(copilot.GetY(GenericHID::kLeftHand),0.1)
+		deadband(-(copilot.GetY(GenericHID::kLeftHand)), 0.1)
 	);
 
 	//Hatch Control
+	/*
 	if(copilot.GetXButton()){
 		hatch.Set(-0.4);
 	} else if (copilot.GetYButton()){
 		hatch.Set(0.4);
 	} else {
-		roller.Set(0);
-	} 
+		hatch.Set(-0.1);
+	} */
 
+	if(copilot.GetXButtonPressed()){
+		Timer timer;
+		timer.Reset();
+		timer.Start();
+
+		while(timer.Get() < .7){
+			hatch.Set(-0.4);
+		}
+
+		hatch.Set(-.05);
+	} else if (copilot.GetYButtonPressed()){
+		Timer timer;
+		timer.Reset();
+		timer.Start();
+
+		while(timer.Get() < .5){
+			hatch.Set(0.4);
+		}
+
+		hatch.Set(0);
+	}
 
 	// Roller Control
 	if (copilot.GetAButton()){
-		roller.Set(-0.4);
-	} else if (copilot.GetBButton()){
 		roller.Set(0.4);
+	} else if (copilot.GetBButton()){
+		roller.Set(-0.4);
 	} else {
-		roller.Set(0);
+		roller.Set(0.2);
 	}
 
 

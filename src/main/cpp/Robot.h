@@ -74,6 +74,8 @@ class Robot: public IterativeRobot
 	void Turn2( float Speed, float Time );
 	void Strafe( float Speed, float Time );
 	int AutoSwitch();
+
+
 };
 
 #endif /* SRC_ROBOT_H_ */
