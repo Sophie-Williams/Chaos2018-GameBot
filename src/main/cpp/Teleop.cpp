@@ -7,9 +7,11 @@
 #include "Roller.h"
 #include "Hatch.h"
 #include "TimedRobot.h"
+#include "ultrasonic.h"
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableEntry.h"
 #include "networktables/NetworkTableInstance.h"
+
 
 double deadband(double input, float deadband = 0.2) {
 
@@ -30,6 +32,7 @@ void Robot::TeleopPeriodic() {
 
 	auto inst = nt::NetworkTableInstance::GetDefault();
 	auto table = inst.GetTable("datatable");
+	auto table2 = inst.GetTable("ultrasonic");
 
 	double ballAngle = 0;
 	double targetAngle = 0;
@@ -44,6 +47,13 @@ void Robot::TeleopPeriodic() {
 
 	ballAngle = xEntry.GetDouble(0);
 	targetAngle = yEntry.GetDouble(0);
+
+	nt::NetworkTableEntry xEntry2 = table2->GetEntry("X");
+	nt::NetworkTableEntry yEntry2 = table2->GetEntry("y");
+
+	xEntry2.SetDouble(distanceSensor.GetVoltage());
+	yEntry2.SetDouble(distanceSensor.GetDistance());
+	
 
 	
 
@@ -85,16 +95,26 @@ void Robot::TeleopPeriodic() {
 		}
 		Turn2(sped, tim);
 		//robotDrive.DriveCartesian(0, 0, (ballAngle * 0.0125), 0);
-		std::cout << sped << "\n";
-		std::cout << tim << "\n";
+		//std::cout << sped << "\n";
+		//std::cout << tim << "\n";
 			
 		
 	} 
-	if (driver.GetYButton()){
+	if (driver.GetBButton()){
 		robotDrive.DriveCartesian(0, 0, (targetAngle * 0.02), 0);		
 	}
 
 	// Climbing Control
+	if(driver.GetYButton()){
+
+	
+		//release climb plates
+		climber.releasePlates(0, 180);
+
+	} else{
+		climber.releasePlates(30, 150);
+	}
+
 	climber.Set(
 		deadband(copilot.GetY(GenericHID::kRightHand),0.1)
 	);
@@ -114,7 +134,7 @@ void Robot::TeleopPeriodic() {
 		hatch.Set(-0.1);
 	} */
 
-	if(copilot.GetXButtonPressed()){
+	/*if(copilot.GetXButtonPressed()){
 		Timer timer;
 		timer.Reset();
 		timer.Start();
@@ -134,7 +154,14 @@ void Robot::TeleopPeriodic() {
 		}
 
 		hatch.Set(0);
+	}*/
+
+	if(copilot.GetYButton()){
+		hatch.deploy();
+	} else if(copilot.GetXButton()){
+		hatch.retract();
 	}
+	hatch.teleopPeriodic();
 
 	// Roller Control
 	if (copilot.GetAButton()){

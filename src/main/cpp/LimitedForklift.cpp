@@ -6,6 +6,9 @@ LimitedForklift::LimitedForklift( int talon_id, int topLS_port, int bottomLS_por
 	topLS( topLS_port ),
 	bottomLS( bottomLS_port )
 {
+	liftEncoder = new Encoder(0, 1, false, Encoder::EncodingType::k4X);
+	liftEncoder->SetMaxPeriod(.1);
+	liftEncoder->SetMinRate(10);
 }
 
 void LimitedForklift::Set( float speed ) {
@@ -17,7 +20,7 @@ void LimitedForklift::Set( float speed ) {
 		if( speed > 0 ) {
 			forkliftMotor.Set( speed );
 		} else {
-			forkliftMotor.Set( -.2 );
+			forkliftMotor.Set( 0 );
 		}
 
 	} else if( !bottomLS.Get() ) {
@@ -26,7 +29,7 @@ void LimitedForklift::Set( float speed ) {
 		if( speed < 0 ) {
 			forkliftMotor.Set( speed );
 		} else {
-			forkliftMotor.Set( 0 );
+			forkliftMotor.Set( 0.2 );
 		}
 
 	} else {
@@ -36,4 +39,8 @@ void LimitedForklift::Set( float speed ) {
 
 	}
 
+}
+
+int LimitedForklift::GetEncoder(){
+	return (liftEncoder->Get());
 }

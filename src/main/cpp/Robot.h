@@ -11,6 +11,7 @@
 #include "Roller.h"
 #include "Hatch.h"
 #include "LimitedForklift.h"
+#include "ultrasonic.h"
 
 // Main Robot Class
 class Robot: public IterativeRobot
@@ -38,6 +39,7 @@ class Robot: public IterativeRobot
 	Roller roller;
 	LimitedForklift forklift;
 	Hatch hatch;
+	DistanceSensor distanceSensor;
 
 	// Assorted In's and Out's
     AHRS *m_pAHRS;

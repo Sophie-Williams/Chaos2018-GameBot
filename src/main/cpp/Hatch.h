@@ -10,12 +10,18 @@ class Hatch {
 
 private:
 	WPI_TalonSRX hatch;
+	bool deployFlag;
+	bool retractFlag;
+	Timer timer;
 
 public:
 	// Constructors
 	Hatch( int talon_id);
 
 	// Member Methods
+	void teleopPeriodic();
+	void deploy();
+	void retract();
 	void Set( float speed );
 
 };

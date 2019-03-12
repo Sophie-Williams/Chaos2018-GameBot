@@ -27,7 +27,7 @@ Robot::Robot():
 	copilot(4),
 
 	// Subsystems
-	climber(CLIMBER_CANTALON_ID, 7),
+	climber(CLIMBER_CANTALON_ID, 7, 4, 5),
 	roller(ROLLER_CANTALON_ID),
 	forklift(FORKLIFT_CANTALON_ID, 0, 9),
 	hatch(HATCH_CANTALON_ID),
