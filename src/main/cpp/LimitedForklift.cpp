@@ -3,12 +3,12 @@
 
 LimitedForklift::LimitedForklift( int talon_id, int topLS_port, int bottomLS_port ):
 	forkliftMotor( talon_id ),
+	liftEncoder(1, 2, false, Encoder::EncodingType::k4X),
 	topLS( topLS_port ),
 	bottomLS( bottomLS_port )
 {
-	liftEncoder = new Encoder(0, 1, false, Encoder::EncodingType::k4X);
-	liftEncoder->SetMaxPeriod(.1);
-	liftEncoder->SetMinRate(10);
+	liftEncoder.SetMaxPeriod(.1);
+	liftEncoder.SetMinRate(10);
 }
 
 void LimitedForklift::Set( float speed ) {
@@ -38,9 +38,47 @@ void LimitedForklift::Set( float speed ) {
 		forkliftMotor.Set( speed );
 
 	}
-
 }
 
 int LimitedForklift::GetEncoder(){
-	return (liftEncoder->Get());
+	return (liftEncoder.Get());
 }
+
+void LimitedForklift::GoUpLevel(){
+	if(liftEncoder.Get() < 95){
+		forkliftMotor.Set( 0.25 );
+	} else if(95 < liftEncoder.Get() && liftEncoder.Get() < 105){
+		forkliftMotor.Set( 0 );
+	} else if(105 < liftEncoder.Get() && liftEncoder.Get() < 195){
+		forkliftMotor.Set( 0.25 );
+	} else if(190 < liftEncoder.Get() && liftEncoder.Get() < 210){
+		forkliftMotor.Set( 0 );
+	} else if(205 < liftEncoder.Get() && liftEncoder.Get() < 295){
+		forkliftMotor.Set( 0.25 );
+	} else if(295 < liftEncoder.Get() && liftEncoder.Get() < 305){
+		forkliftMotor.Set( 0 );
+	} else{
+		forkliftMotor.Set(-.25);
+	}
+
+}
+
+void LimitedForklift::GoDownLevel(){
+	if(liftEncoder.Get() < 95){
+		forkliftMotor.Set( 0.25 );
+	} else if(95 < liftEncoder.Get() && liftEncoder.Get() < 105){
+		forkliftMotor.Set( 0 );
+	} else if(105 < liftEncoder.Get() && liftEncoder.Get() < 195){
+		forkliftMotor.Set( -0.25 );
+	} else if(190 < liftEncoder.Get() && liftEncoder.Get() < 210){
+		forkliftMotor.Set( 0 );
+	} else if(205 < liftEncoder.Get() && liftEncoder.Get() < 295){
+		forkliftMotor.Set( -0.25 );
+	} else if(295 < liftEncoder.Get() && liftEncoder.Get() < 305){
+		forkliftMotor.Set( 0 );
+	} else{
+		forkliftMotor.Set(-.25);
+	}
+
+}
+

@@ -51,8 +51,10 @@ void Robot::TeleopPeriodic() {
 	nt::NetworkTableEntry xEntry2 = table2->GetEntry("X");
 	nt::NetworkTableEntry yEntry2 = table2->GetEntry("y");
 
-	xEntry2.SetDouble(distanceSensor.GetVoltage());
-	yEntry2.SetDouble(distanceSensor.GetDistance());
+	xEntry2.SetDouble(forklift.GetEncoder());
+
+	std::cout << "Encoder position: " << forklift.GetEncoder() << "\n";
+	//yEntry2.SetDouble(distanceSensor.GetDistance());
 	
 
 	
@@ -123,6 +125,12 @@ void Robot::TeleopPeriodic() {
 	forklift.Set(
 		deadband(-(copilot.GetY(GenericHID::kLeftHand)), 0.1)
 	);
+
+	if(copilot.GetBumper(GenericHID::kLeftHand)){
+		forklift.GoDownLevel();
+	} else if(copilot.GetBumper(GenericHID::kRightHand)){
+		forklift.GoUpLevel();
+	}
 
 	//Hatch Control
 	/*

@@ -11,7 +11,7 @@ class LimitedForklift {
 private:
 	WPI_TalonSRX forkliftMotor;
 
-	Encoder *liftEncoder;
+	Encoder liftEncoder;
 
 	// Limit Switches
 	DigitalInput topLS;
@@ -27,6 +27,9 @@ public:
 	void Set( float speed );
 
 	int GetEncoder();
+
+	void GoUpLevel();
+	void GoDownLevel();
 
 };
 
