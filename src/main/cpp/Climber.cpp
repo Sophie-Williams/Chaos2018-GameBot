@@ -31,7 +31,7 @@ void Climber::Set( float speed ) {
 
 void Climber::releasePlates( double servo1Angle,double servo2Angle) {
 	plateServo1.SetAngle(servo1Angle);
-	plateServo2.Set(servo2Angle);
+	plateServo2.SetAngle(servo2Angle);
 }
 
 

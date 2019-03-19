@@ -13,5 +13,5 @@ double DistanceSensor::GetVoltage(){
 }
 
 double DistanceSensor::GetDistance(){
-    return GetVoltage() * VOLTS_TO_DIST;
+    return (mb1013.GetVoltage() * VOLTS_TO_DIST);
 }

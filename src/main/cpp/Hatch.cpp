@@ -15,7 +15,7 @@ void Hatch::teleopPeriodic(){
     } else if(retractFlag && timer.Get() < .5){
         hatch.Set(-0.4);
     } else if(retractFlag){
-        hatch.Set(-.05);
+        hatch.Set(-.1);
     } else{
         hatch.Set(0);
     }

@@ -3,7 +3,7 @@
 
 LimitedForklift::LimitedForklift( int talon_id, int topLS_port, int bottomLS_port ):
 	forkliftMotor( talon_id ),
-	liftEncoder(1, 2, false, Encoder::EncodingType::k4X),
+	liftEncoder(3, 4, false, Encoder::EncodingType::k4X),
 	topLS( topLS_port ),
 	bottomLS( bottomLS_port )
 {

@@ -10,7 +10,7 @@ class DistanceSensor {
 private:
 	AnalogInput mb1013 = AnalogInput(0);
     
-    double VOLTS_TO_DIST = 5.0 / 25.4;
+    double VOLTS_TO_DIST = 40.34;
 
 public:
     //Constructor
