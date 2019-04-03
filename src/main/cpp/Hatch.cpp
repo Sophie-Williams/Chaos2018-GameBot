@@ -19,7 +19,7 @@ void Hatch::teleopPeriodic(){
     } else{
         hatch.Set(0);
     }
-    std::cout << timer.Get() << "\n";
+    //std::cout << timer.Get() << "\n";
 }
 
 void Hatch::deploy(){

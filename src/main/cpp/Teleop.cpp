@@ -14,8 +14,10 @@
 
 bool autoUp=false;
 bool autoDown=false;
+bool autoDone=false;
 int currentEncoderPos;
 int currentArrayPos;
+int tolerance;
 int levels [8];
 int getUpArrayPos(int curpos) {
 
@@ -23,25 +25,44 @@ int getUpArrayPos(int curpos) {
 		curpos=0;
 	}
 
-	for (int indx=0; indx < 7; indx++) {
+	for (int indx=0; indx < 3; indx++) {
 
-		if ( (levels[indx] <= curpos) && (levels[indx+1] >= curpos)){
-			return indx+1;
+
+//		if ( (levels[indx] <= curpos) && (levels[indx+1] >= curpos)){
+		if ( (levels[indx] >= curpos)){
+			if (curpos+tolerance >= levels[indx]){
+				return indx+1;
+			} else
+			{return indx;
+			}
 		}			
 	}
-	return 7;
+	return 3;
 }
 int getDownArrayPos(int curpos){
 
 	if (curpos>9999999){
 		curpos=9999999;
 	} 
-	for (int indx=7; indx > 0; indx--){
-	
-		if ((levels[indx] >= curpos) && (levels [indx-1] <= curpos)){
-			return indx-1;
-		}			
+	std::cout << "IN GET DOWN POS: cur pos is " << curpos << "\n";
+	for (int indx=3; indx > -1; indx--){
+
+
+std::cout << "IN FOR LOOP indx is " <<levels[indx] << "\n" ;
+std::cout << "IN FOR LOOP indx -1 is " <<levels[indx-1] << "\n" ;
+
+		if ((levels[indx] <= curpos)){
+
+			if ((curpos-tolerance) <= (levels[indx])){\
+
+				return indx-1;
+			} else
+			{
+				return indx;
+			}		
+		}
 	}
+	std::cout << "RETURNING ZERO\n";
 	return 0;
 }
 
@@ -61,13 +82,16 @@ double deadband(double input, float deadband = 0.2) {
 void Robot::TeleopInit() {
 	robotDrive.SetSafetyEnabled(false);	// Necessary for proper motor functioning during Teleop
 levels [0] = 0;
-levels [1] = 1988;
-levels [2] = 6019;
-levels [3] = 9330;
-levels [4] = 20000;
+levels [1] = 153;
+levels [2] = 679;
+levels [3] = 1139;
+levels [4] = 8000;
 levels [5] = 30000;
 levels [6] = 40000;
 levels [7] = 50000;
+tolerance=50;
+currentArrayPos=0;
+
 
 }
 
@@ -97,11 +121,11 @@ void Robot::TeleopPeriodic() {
 	xEntry2.SetDouble(distanceSensor.GetVoltage());
 	yEntry2.SetDouble(distanceSensor.GetDistance());
 
-	std::cout << "Encoder position: " << forklift.GetEncoder() << "\n";
-	
+//	std::cout << "Encoder position: " << forklift.GetEncoder() << "\n";
+//	std::cout << "Target position: " << levels[currentArrayPos] << "\n";
 	
 
-	if(driver.GetXButton()){
+	if(driver.GetAButton()){
 		robotDrive.DriveCartesian(
 			1 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement
 			1 * deadband(driver.GetX(GenericHID::kLeftHand)), // Sideways movement
@@ -116,7 +140,7 @@ void Robot::TeleopPeriodic() {
 	}
 
 	// Auto Align
-	if (driver.GetAButton() == true){
+	/*if (driver.GetXButton() == true){
 		
 		ballAngle = xEntry.GetDouble(0);
 
@@ -150,7 +174,7 @@ void Robot::TeleopPeriodic() {
 	} 
 	if (driver.GetBButton()){
 		robotDrive.DriveCartesian(0, 0, (targetAngle * 0.02), 0);		
-	}
+	}*/
 
 	// Climbing Control
 	if(driver.GetYButton()){
@@ -181,72 +205,106 @@ void Robot::TeleopPeriodic() {
 	//NEW CODE HERE
 
 //Forklift Control
-if (deadband(copilot.GetY(GenericHID::kLeftHand), 0.2) != 0){
+if (deadband(copilot.GetY(GenericHID::kLeftHand), 0.1) != 0){
+	
     autoUp=false;
 	autoDown=false;
-	forklift.Set(
-		deadband(-(copilot.GetY(GenericHID::kLeftHand)), 0.2)
+	autoDone=false;
+	forklift.Set(-(copilot.GetY(GenericHID::kLeftHand))
 	);
-}
+} else if (!autoUp && !autoDown && !autoDone)
+	{
+		forklift.Set(0);
+	}
 
 
-else if (copilot.GetBumperPressed(GenericHID::kRightHand)){
+
+if (copilot.GetBumperPressed(GenericHID::kRightHand)){
 	if (!autoUp){
 		autoDown=false;
 		autoUp=true;
+		autoDone=false;
 		currentEncoderPos=forklift.GetEncoder();
         currentArrayPos=getUpArrayPos(currentEncoderPos);
+		std::cout << "NEW UP COMMAND" << "\n";
+			std::cout << "Encoder position: " << forklift.GetEncoder() << "\n";
+	std::cout << "Target position: " << levels[currentArrayPos] << "\n";
+
 	}else{
-		if (currentArrayPos < 7){
+		if (currentArrayPos < 3){
+				std::cout << "INCREASE UP COMMAND" << "\n";
+					std::cout << "Encoder position: " << forklift.GetEncoder() << "\n";
+	std::cout << "Target position: " << levels[currentArrayPos] << "\n";
+
 			currentArrayPos = currentArrayPos+1;
 		}
 	}
 	if (currentEncoderPos < levels[currentArrayPos]){
-		forklift.Set(deadband((.25), 0.1));
+		forklift.Set(deadband((.8), 0.1));
 	}
 	else {
 		autoUp=false;
+		autoDone=true;
+		
 	}
 }
 else if (copilot.GetBumperPressed(GenericHID::kLeftHand)){
 	if (!autoDown){
 		autoUp=false;
 		autoDown=true;
+		autoDone=false;
 		currentEncoderPos=forklift.GetEncoder();
         currentArrayPos=getDownArrayPos(currentEncoderPos);
+		std::cout << "NEW DOWN COMMAND" << "\n";
+			std::cout << "Encoder position: " << forklift.GetEncoder() << "\n";
+	std::cout << "Target position: " << levels[currentArrayPos] << "\n";
 	} else{
 		if (currentArrayPos > 0){
 			currentArrayPos = currentArrayPos-1;
 		}
 	}
 	if (currentEncoderPos > levels[currentArrayPos]){
-		forklift.Set(deadband(-(.25), 0.1));
+		forklift.Set(deadband(-(.15), 0.1));
 	}
 	else {
 		autoDown=false;
+		autoDone=true;
+		
 	}
 }
 else if (autoUp){
 		currentEncoderPos=forklift.GetEncoder();
 		if (currentEncoderPos < levels[currentArrayPos]){
-			forklift.Set(deadband((.25), 0.1));
+			forklift.Set(deadband((.8), 0.1));
 		}
 		else{
 			autoUp=false;
+			autoDone=true;
+			forklift.Set( 0.2 );
 		}
 }
 else if (autoDown){
 		currentEncoderPos=forklift.GetEncoder();
 		if (currentEncoderPos > levels[currentArrayPos]){
-			forklift.Set(deadband(-(.25), 0.1));
+			forklift.Set(deadband(-(.1), 0.1));
 		}
 		else{
 			autoDown=false;
+			autoDone=true;
+			if (levels[currentArrayPos]>tolerance){
+				forklift.Set( 0.2 );
+			}
+			else {
+				forklift.Set( 0 );
+			}
 		}
-} else{
-	forklift.Set(
-	deadband(-(copilot.GetY(GenericHID::kLeftHand)), 0.2)
-	);}
+}/* else{
+	if(currentEncoderPos <20){forklift.Set( 0 );}
+	else{forklift.Set( 0.2 );}
+	//forklift.Set(
+	//deadband(-(copilot.GetY(GenericHID::kLeftHand)), 0.2)
+	//);}
+}*/
 
 
 
@@ -306,7 +364,7 @@ else if (autoDown){
 
 	UpdateMotors();
 
-	Wait(0.005);
+	//Wait(0.005);
 
 }
 

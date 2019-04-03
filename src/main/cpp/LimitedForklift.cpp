@@ -22,6 +22,7 @@ void LimitedForklift::Set( float speed ) {
 		} else {
 			forkliftMotor.Set( 0 );
 		}
+		
 
 	} else if( !bottomLS.Get() ) {
 
