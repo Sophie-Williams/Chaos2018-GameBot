@@ -10,6 +10,7 @@
 #include "PowerDistributionPanel.h"
 #include "Roller.h"
 #include "Hatch.h"
+#include "Align.h"
 #include "LimitedForklift.h"
 #include "ultrasonic.h"
 
@@ -40,6 +41,7 @@ class Robot: public IterativeRobot
 	LimitedForklift forklift;
 	Hatch hatch;
 	DistanceSensor distanceSensor;
+	Align align;
 
 	// Assorted In's and Out's
     AHRS *m_pAHRS;

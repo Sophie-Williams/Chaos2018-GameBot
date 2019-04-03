@@ -6,6 +6,7 @@
 #include "Climber.h"
 #include "Roller.h"
 #include "Hatch.h"
+#include "Align.h"
 #include "TimedRobot.h"
 #include "ultrasonic.h"
 #include "networktables/NetworkTable.h"
@@ -131,6 +132,20 @@ void Robot::TeleopPeriodic() {
 			1 * deadband(driver.GetX(GenericHID::kLeftHand)), // Sideways movement
 			1 * deadband(driver.GetX(GenericHID::kRightHand))  // Rotational movement
 		);
+	} else if(driver.GetBumper(GenericHID::kRightHand)){
+		if (align.AutoAlign() != 99999){
+			robotDrive.DriveCartesian(
+				.5 * deadband(driver.GetY(GenericHID::kLeftHand)), 		//Forward movement
+				0, 															//No Strafe
+				(align.AutoAlign()) 										//Auto rotate
+			);
+		} else{
+			robotDrive.DriveCartesian(
+				0.5 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement
+				0.75 * deadband(driver.GetX(GenericHID::kLeftHand)), // Sideways movement
+				0.5 * deadband(driver.GetX(GenericHID::kRightHand))  // Rotational movement
+			);
+		}
 	} else{
 		robotDrive.DriveCartesian(
 			0.5 * deadband(driver.GetY(GenericHID::kLeftHand)), // Forward movement
@@ -139,69 +154,8 @@ void Robot::TeleopPeriodic() {
 		);
 	}
 
-	// Auto Align
-	/*if (driver.GetXButton() == true){
-		
-		ballAngle = xEntry.GetDouble(0);
-
-		if (abs(ballAngle) < 1){
-			while (true){
-				if (driver.GetAButtonReleased()){
-					break;
-				}
-			}
-		}
-
-		if (ballAngle > .5){
-			sped = 0.2;
-		} else if (ballAngle < -.5){
-			sped = -0.2;
-		} else{
-			sped = 0;
-		}
-
-		if ((ballAngle < 0.75) and (ballAngle > -0.75)){
-			tim = 0.01;
-		} else{
-			tim = 0.05;
-		}
-		Turn2(sped, tim);
-		//robotDrive.DriveCartesian(0, 0, (ballAngle * 0.0125), 0);
-		//std::cout << sped << "\n";
-		//std::cout << tim << "\n";
-			
-		
-	} 
-	if (driver.GetBButton()){
-		robotDrive.DriveCartesian(0, 0, (targetAngle * 0.02), 0);		
-	}*/
-
-	// Climbing Control
-	if(driver.GetYButton()){
 
 	
-		//release climb plates
-		climber.releasePlates(0, 180);
-
-	} else{
-		climber.releasePlates(30, 150);
-	}
-
-	climber.Set(
-		deadband(copilot.GetY(GenericHID::kRightHand),0.2)
-	);
-
-	//Forklift Control
-	/*forklift.Set(
-		deadband(-(copilot.GetY(GenericHID::kLeftHand)), 0.2)
-	);*/
-
-	/*if(copilot.GetBumper(GenericHID::kLeftHand)){
-		forklift.GoDownLevel();
-	} else if(copilot.GetBumper(GenericHID::kRightHand)){
-		forklift.GoUpLevel();
-	}*/
-
 	//NEW CODE HERE
 
 //Forklift Control

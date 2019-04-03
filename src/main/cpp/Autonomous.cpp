@@ -6,7 +6,6 @@
 void Robot::AutonomousInit() {
 	Robot::TeleopInit();
 }
-
 void Robot::AutonomousPeriodic() {
 	Robot::TeleopPeriodic();
 }
