@@ -31,6 +31,7 @@ Robot::Robot():
 	roller(ROLLER_CANTALON_ID),
 	forklift(FORKLIFT_CANTALON_ID, 0, 9),
 	hatch(HATCH_CANTALON_ID),
+	align(6, 8),
 
 	// Assorted In's and Out's
 	pdu(0),
