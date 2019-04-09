@@ -6,6 +6,7 @@
 #include "WPILib.h"
 #include <AHRS.h>
 #include "ctre/Phoenix.h"
+#include "rev/CANSparkMax.h"
 #include "Climber.h"
 #include "PowerDistributionPanel.h"
 #include "Roller.h"
@@ -18,11 +19,11 @@ class Robot: public IterativeRobot
 {
   private:
 	// Actual Motor Controllers
-	WPI_TalonSRX frontRight;
-	WPI_TalonSRX frontLeft;
-	WPI_TalonSRX rearLeft;
-	WPI_TalonSRX rearRight;
-
+	static const int frontRightDeviceID = 58, frontLeftDeviceID = 61, rearRightDeviceID =60, rearLeftDeviceID = 59;
+	rev::CANSparkMax frontRight{frontRightDeviceID, rev::CANSparkMax::MotorType::kBrushless};
+	rev::CANSparkMax frontLeft{frontLeftDeviceID, rev::CANSparkMax::MotorType::kBrushless};
+	rev::CANSparkMax rearRight{rearRightDeviceID, rev::CANSparkMax::MotorType::kBrushless};
+	rev::CANSparkMax rearLeft{rearLeftDeviceID, rev::CANSparkMax::MotorType::kBrushless};
 	// Fake Motor Controllers
 	// TODO: Check if WPILib is fixed yet.
 	PWMTalonSRX PWMfr;

@@ -11,10 +11,10 @@
 Robot::Robot():
 	// Actual Motor Controllers
 	m_pAHRS(nullptr),
-	frontRight(FRONT_RIGHT_CANTALON_ID),
-	frontLeft(FRONT_LEFT_CANTALON_ID),
-	rearLeft(REAR_LEFT_CANTALON_ID),
-	rearRight(REAR_RIGHT_CANTALON_ID),
+	//frontRight(FRONT_RIGHT_CANTALON_ID),
+	//frontLeft(FRONT_LEFT_CANTALON_ID),
+	//rearLeft(REAR_LEFT_CANTALON_ID),
+	//rearRight(REAR_RIGHT_CANTALON_ID),
 
 	// Fake Motor Controllers
 	PWMfr(0),
